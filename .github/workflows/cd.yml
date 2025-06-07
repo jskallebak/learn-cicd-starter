@@ -13,6 +13,14 @@ jobs:
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
     steps:
+      - name: Validate DATABASE_URL
+        run: |
+          if [ -z "$DATABASE_URL" ]; then
+            echo "ERROR: DATABASE_URL is empty or not set"
+            exit 1
+          fi
+          echo "DATABASE_URL is properly configured" |
+
       - name: Check out code
         uses: actions/checkout@v4
 
