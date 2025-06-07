@@ -11,12 +11,14 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v4
-      - name: print url
-        run: echo $DATABASE_URL
       - name: Validate DATABASE_URL
         run: |
           [ -n "$DATABASE_URL" ] || { echo "ERROR: DATABASE_URL is empty or not set"; exit 1; }
           echo "DATABASE_URL is properly configured"
+      - name: Print DATABASE_URL (masked)
+        run: |
+          echo "DATABASE_URL length: ${#DATABASE_URL}"
+          echo "DATABASE_URL (first 20 chars): ${DATABASE_URL:0:20}..."
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
